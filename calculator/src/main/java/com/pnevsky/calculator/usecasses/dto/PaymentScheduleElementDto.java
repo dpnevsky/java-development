@@ -5,34 +5,31 @@ import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Min;
 import lombok.Builder;
 import jakarta.validation.constraints.NotNull;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Builder(setterPrefix = "with")
-public class PaymentScheduleElementDto {
-
+public record PaymentScheduleElementDto (
     @Schema(description = "Payment schedule element number", example = "1")
     @NotNull(message = "Payment number is required")
     @Min(value = 1, message = "Payment number must be greater than or equal to 1")
-    private Integer number;
-
+    Integer number,
     @Schema(description = "Date of the payment", example = "2023-06-15")
     @NotNull(message = "Payment date is required")
-    private LocalDate date;
-
+    LocalDate date,
     @Schema(description = "Total payment amount", example = "1500.00")
     @DecimalMin(value = "0.01", message = "Total payment must be greater than zero")
-    private BigDecimal totalPayment;
-
+    BigDecimal totalPayment,
     @Schema(description = "Interest part of the payment", example = "500.00")
     @DecimalMin(value = "0.01", message = "Interest payment must be greater than zero")
-    private BigDecimal interestPayment;
-
+    BigDecimal interestPayment,
     @Schema(description = "Principal part of the payment", example = "1000.00")
     @DecimalMin(value = "0.01", message = "Debt payment must be greater than zero")
-    private BigDecimal debtPayment;
-
+    BigDecimal debtPayment,
     @Schema(description = "Remaining debt after this payment", example = "3000.00")
     @DecimalMin(value = "0.01", message = "Remaining debt must be greater than zero")
-    private BigDecimal remainingDebt;
+    BigDecimal remainingDebt
+) implements Serializable {
 }
