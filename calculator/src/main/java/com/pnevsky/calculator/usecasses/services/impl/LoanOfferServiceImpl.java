@@ -1,18 +1,18 @@
-package com.pnevsky.calculator.usecasses.impl;
+package com.pnevsky.calculator.usecasses.services.impl;
 
-import com.pnevsky.calculator.usecasses.LoanOfferService;
+import com.pnevsky.calculator.usecasses.services.LoanOfferService;
 import com.pnevsky.calculator.usecasses.dto.LoanOfferDto;
 import com.pnevsky.calculator.usecasses.dto.LoanStatementRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.UUID;
+import static com.pnevsky.calculator.usecasses.services.util.ServiceForCalculate.calculateInsurancePrice;
+import static com.pnevsky.calculator.usecasses.services.util.ServiceForCalculate.calculateMonthlyPayment;
 
 @Slf4j
 @Service
@@ -21,14 +21,13 @@ public class LoanOfferServiceImpl implements LoanOfferService {
     @Value("${loan.base-rate}")
     private BigDecimal baseRate;
 
-    @Value("${loan.insurance-price}")
-    private BigDecimal insurancePrice;
-
     @Value("${loan.salary-client-rate-discount}")
     private BigDecimal salaryClientDiscount;
 
     @Value("${loan.insurance-rate-discount}")
     private BigDecimal insuranceRateDiscount;
+
+    private BigDecimal insurancePrice;
 
     @Override
     public List<LoanOfferDto> generateLoanOffers(LoanStatementRequestDto request) {
@@ -39,10 +38,13 @@ public class LoanOfferServiceImpl implements LoanOfferService {
         Integer term = request.term();
 
         log.info("Input values - Requested Amount: {}, Term: {}", requestedAmount, term);
+        insurancePrice = calculateInsurancePrice(requestedAmount);
+        log.info("Insurance price will be: {}", insurancePrice);
 
         for (boolean isInsuranceEnabled : new boolean[]{false, true}) {
             for (boolean isSalaryClient : new boolean[]{false, true}) {
-                BigDecimal rate = calculateRate(isInsuranceEnabled, isSalaryClient);
+
+                BigDecimal rate = calculateRateForLoanOffers(isInsuranceEnabled, isSalaryClient);
                 BigDecimal totalAmount = requestedAmount.add(isInsuranceEnabled ? insurancePrice : BigDecimal.ZERO);
                 BigDecimal monthlyPayment = calculateMonthlyPayment(totalAmount, rate, term);
 
@@ -64,40 +66,21 @@ public class LoanOfferServiceImpl implements LoanOfferService {
             }
         }
 
-        offers.sort(Comparator.comparing(LoanOfferDto::rate));
+        offers.sort(Comparator.comparing(LoanOfferDto::rate).reversed());
         log.info("Generated loan offers: {}", offers);
 
         return offers;
     }
 
-    private BigDecimal calculateRate(boolean isInsuranceEnabled, boolean isSalaryClient) {
+    private BigDecimal calculateRateForLoanOffers(boolean isInsuranceEnabled, boolean isSalaryClient) {
         log.debug("Calculating rate with IsInsuranceEnabled: {}, IsSalaryClient: {}", isInsuranceEnabled, isSalaryClient);
-
         BigDecimal rate = baseRate;
-
-        if (isInsuranceEnabled) {
+        if (isInsuranceEnabled)
             rate = rate.subtract(insuranceRateDiscount);
-        }
-
-        if (isSalaryClient) {
+        if (isSalaryClient)
             rate = rate.subtract(salaryClientDiscount);
-        }
-
         log.debug("Calculated rate: {}", rate);
+
         return rate;
-    }
-
-    private BigDecimal calculateMonthlyPayment(BigDecimal totalAmount, BigDecimal rate, Integer term) {
-        log.debug("Calculating monthly payment with TotalAmount: {}, Rate: {}, Term: {}", totalAmount, rate, term);
-
-        BigDecimal monthlyRate = rate.divide(BigDecimal.valueOf(12), 2, RoundingMode.HALF_UP);
-        BigDecimal denominator = BigDecimal.ONE.subtract(
-                BigDecimal.ONE.add(monthlyRate).pow(-term, java.math.MathContext.DECIMAL128)
-        );
-
-        BigDecimal monthlyPayment = totalAmount.multiply(monthlyRate).divide(denominator, 2, RoundingMode.HALF_UP);
-        log.debug("Calculated monthly payment: {}", monthlyPayment);
-
-        return monthlyPayment;
     }
 }

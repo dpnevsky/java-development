@@ -1,4 +1,4 @@
-package com.pnevsky.calculator.usecasses;
+package com.pnevsky.calculator.usecasses.services;
 
 import com.pnevsky.calculator.usecasses.dto.LoanOfferDto;
 import com.pnevsky.calculator.usecasses.dto.LoanStatementRequestDto;
