@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: calculator
+
+loan:
+  base-rate: 12
+  salary-client-rate-discount: 1
+  insurance-rate-discount: 3
