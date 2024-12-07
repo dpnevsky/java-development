@@ -4,11 +4,13 @@ import core.dto.CreditDto;
 import deal.persistence.model.Credit;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
-import java.util.UUID;
+import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring",
-        builder = @Builder(disableBuilder = true), imports = {UUID.class})
+        builder = @Builder(disableBuilder = true))
 public interface CreditMapper {
 
+    @Mapping(target = "creditStatus", ignore = true)
+    @Mapping(target = "creditId", ignore = true)
     Credit fromDtoToEntity(CreditDto creditDto);
 }

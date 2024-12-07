@@ -67,7 +67,7 @@ public record LoanStatementRequestDto (
     @AssertTrue(message = "Borrower must be at least 18 years old")
     public boolean isAgeValid() {
         if (birthdate == null) {
-            return false; // Если дата рождения отсутствует, проверка не проходит
+            return false;
         }
         return Period.between(birthdate, LocalDate.now()).getYears() >= 18;
     }

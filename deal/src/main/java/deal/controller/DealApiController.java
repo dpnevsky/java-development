@@ -1,5 +1,6 @@
 package deal.controller;
 
+import core.type.CreditStatusType;
 import deal.client.CalculatorServiceRestClient;
 import deal.mapper.CreditMapper;
 import deal.persistence.model.Client;
@@ -87,19 +88,25 @@ public class DealApiController {
         }
 
         Client client = statement.getClientID();
+        client.setGender(finishRegistrationRequestDto.gender());
+        client.setDependentAmount(finishRegistrationRequestDto.dependentAmount());
+        client.setMaritalStatus(finishRegistrationRequestDto.maritalStatus());
+        client.setEmployment(finishRegistrationRequestDto.employment());
+        client.getPassport().setIssueBranch(finishRegistrationRequestDto.passportIssueBranch());
+        client.getPassport().setIssueDate(finishRegistrationRequestDto.passportIssueDate());
         LoanOfferDto appliedOffer = statement.getAppliedOffer();
 
-        log.info("Preparing scoring data for statement ID: {}", statementId);
+        log.debug("Preparing scoring data for statement ID: {}", statementId);
 
         ScoringDataDto scoringDataDto = loanStatementService.buildScoringData(client, appliedOffer, finishRegistrationRequestDto);
 
-        log.info("Sending scoring data to calculator service for statement ID: {}", statementId);
+        log.debug("Sending scoring data to calculator service for statement ID: {}", statementId);
         CreditDto creditDto = calculatorServiceRestClient.calculateLoan(scoringDataDto);
 
-        log.info("Received credit data from calculator: {}", creditDto);
+        log.debug("Received credit data from calculator: {}", creditDto);
 
         Credit credit = creditMapper.fromDtoToEntity(creditDto);
-
+        credit.setCreditStatus(CreditStatusType.CALCULATED);
         statement.setCreditID(credit);
         creditService.saveCredit(credit);
         log.debug("Credit data saved for statement ID: {}", statementId);

@@ -42,7 +42,7 @@ public class Credit {
     @Column(name = "term", nullable = false)
     private Integer term;  // Term in months
 
-    @Column(name = "monthly_payment", nullable = false)
+    @Column(name = "monthly_payment")
     private BigDecimal monthlyPayment;
 
     @Column(name = "rate", nullable = false)
@@ -55,13 +55,13 @@ public class Credit {
     @Column(name = "payment_shedule")
     private List<PaymentScheduleElementDto> paymentSchedule;
 
-    @Column(name = "insurance_enabled", nullable = false)
-    private Boolean insuranceEnabled;
+    @Column(name = "insurance_enabled")
+    private Boolean isInsuranceEnabled;
 
-    @Column(name = "salary_client", nullable = false)
-    private Boolean salaryClient;
+    @Column(name = "salary_client")
+    private Boolean isSalaryClient;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "credit_status", nullable = false)
+    @Column(name = "credit_status")
     private CreditStatusType creditStatus;
 }
