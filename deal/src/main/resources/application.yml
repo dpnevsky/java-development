@@ -1,0 +1,15 @@
+spring:
+    application:
+        name: deal
+    datasource:
+        url: jdbc:postgresql://localhost:5432/dbdeal
+        username: deal
+        password: password
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+
+server:
+    port: 8082
+
