@@ -1,0 +1,20 @@
+spring:
+    profiles:
+        active: local
+        group:
+          test:
+              - test
+    application:
+        name: deal
+    datasource:
+        url: jdbc:postgresql://localhost:5432/dbdeal
+        driver-class-name: org.postgresql.Driver
+    jpa:
+        hibernate:
+            ddl-auto: update
+
+server:
+    port: 8082
+
+calculator:
+    offers-url: http://localhost:8080/calculator/offers

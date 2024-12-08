@@ -8,3 +8,5 @@ java-development.iml
 =======
 java-development.iml
 >>>>>>> d5a18f3 (fixed bugs)
+/core/target/
+/deal/src/main/resources/application-test.yml
