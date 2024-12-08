@@ -21,7 +21,7 @@ import org.hibernate.type.SqlTypes;
 import core.dto.LoanOfferDto;
 import core.dto.StatementStatusHistoryDto;
 import core.type.ApplicationStatusType;
-import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.UUID;
 
@@ -53,7 +53,7 @@ public class Statement {
 
     @Column(name = "creation_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp creationDate;
+    private LocalDate creationDate;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "applied_offer")
@@ -61,7 +61,7 @@ public class Statement {
 
     @Column(name = "sign_date")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private Timestamp signDate;
+    private LocalDate signDate;
 
     @Column(name = "ses_code")
     private String sesCode;

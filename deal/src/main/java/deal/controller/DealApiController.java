@@ -68,6 +68,7 @@ public class DealApiController {
         Statement statement = loanStatementService.selectLoanOfferByStatementId(loanOfferDto.getStatementId());
         if (statement == null) {
             log.error("Statement with ID {} not found", loanOfferDto.getStatementId());
+            return;
         }
 
         loanStatementService.updateStatement(statement, loanOfferDto, ApplicationStatusType.PREAPPROVAL);

@@ -12,8 +12,7 @@ import core.dto.LoanOfferDto;
 import core.dto.StatementStatusHistoryDto;
 import core.type.ApplicationStatusType;
 import core.type.ChangeType;
-import java.sql.Timestamp;
-import java.time.Instant;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -31,7 +30,7 @@ public class LoanStatementServiceImpl implements LoanStatementService {
         Statement statement = new Statement();
         statement.setClientID(client);
         statement.setStatus(ApplicationStatusType.PREPARE_DOCUMENTS);
-        statement.setCreationDate(Timestamp.from(Instant.now()));
+        statement.setCreationDate(LocalDate.now());
         List<StatementStatusHistoryDto> statusHistory = new LinkedList<>();
         statusHistory.add(StatementStatusHistoryDto.builder()
                 .withTime(LocalDateTime.now())

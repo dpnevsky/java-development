@@ -2,6 +2,7 @@ package deal.client.impl;
 
 import deal.client.CalculatorServiceRestClient;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -18,11 +19,14 @@ public class CalculatorServiceRestClientImpl implements CalculatorServiceRestCli
 
     private final RestClient restClient;
 
+    @Value("${calculator.offers-url}")
+    private String calculatorOffersUrl;
+
     @Override
     public List<LoanOfferDto> getLoanOffers(LoanStatementRequestDto loanStatementRequestDto) {
 
         ResponseEntity<List<LoanOfferDto>> response = restClient.post()
-                .uri("http://localhost:8080/calculator/offers")
+                .uri(calculatorOffersUrl)
                 .body(loanStatementRequestDto)
                 .retrieve()
                 .toEntity(new ParameterizedTypeReference<>() {
