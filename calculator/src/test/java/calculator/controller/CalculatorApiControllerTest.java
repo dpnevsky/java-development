@@ -1,17 +1,17 @@
 package calculator.controller;
 
-import calculator.dto.CreditDto;
-import calculator.dto.EmploymentDto;
-import calculator.dto.LoanOfferDto;
-import calculator.dto.LoanStatementRequestDto;
-import calculator.dto.ScoringDataDto;
 import calculator.service.LoanCalculatorService;
 import calculator.service.LoanOfferService;
-import calculator.type.EmploymentStatusType;
-import calculator.type.GenderType;
-import calculator.type.MaritalStatusType;
-import calculator.type.PositionType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.dto.CreditDto;
+import core.dto.EmploymentDto;
+import core.dto.LoanOfferDto;
+import core.dto.LoanStatementRequestDto;
+import core.dto.ScoringDataDto;
+import core.type.EmploymentStatusType;
+import core.type.GenderType;
+import core.type.MaritalStatusType;
+import core.type.PositionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

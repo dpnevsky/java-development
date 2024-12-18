@@ -1,13 +1,13 @@
 package calculator.service.impl;
 
-import calculator.dto.LoanOfferDto;
-import calculator.dto.LoanStatementRequestDto;
+
 import calculator.service.LoanOfferService;
 import calculator.service.util.ServiceForCalculate;
+import core.dto.LoanOfferDto;
+import core.dto.LoanStatementRequestDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-
 import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
@@ -67,7 +67,7 @@ public class LoanOfferServiceImpl implements LoanOfferService {
                                                     .withIsSalaryClient(isSalaryClient)
                                                     .build();
                                         })
-                        ).sorted(Comparator.comparing(LoanOfferDto::rate).reversed()).collect(Collectors.toList());
+                        ).sorted(Comparator.comparing(LoanOfferDto::getRate).reversed()).collect(Collectors.toList());
 
         log.info("Generated loan offers: {}", offers);
         return offers;

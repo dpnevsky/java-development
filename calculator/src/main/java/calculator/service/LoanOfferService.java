@@ -1,7 +1,7 @@
 package calculator.service;
 
-import calculator.dto.LoanOfferDto;
-import calculator.dto.LoanStatementRequestDto;
+import core.dto.LoanOfferDto;
+import core.dto.LoanStatementRequestDto;
 import java.util.List;
 
 public interface LoanOfferService {

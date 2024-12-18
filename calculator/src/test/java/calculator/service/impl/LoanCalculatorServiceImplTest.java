@@ -1,17 +1,17 @@
 package calculator.service.impl;
 
+import core.dto.CreditDto;
+import core.dto.EmploymentDto;
+import core.dto.PaymentScheduleElementDto;
+import core.dto.ScoringDataDto;
+import core.type.EmploymentStatusType;
+import core.type.GenderType;
+import core.type.MaritalStatusType;
+import core.type.PositionType;
 import org.springframework.beans.factory.annotation.Autowired;
-import calculator.dto.CreditDto;
-import calculator.dto.EmploymentDto;
-import calculator.dto.PaymentScheduleElementDto;
-import calculator.dto.ScoringDataDto;
 import calculator.exception.LoanCheckException;
 import calculator.service.util.ServiceForCalculate;
 import calculator.service.util.loancheck.LoanApplicationProcessor;
-import calculator.type.EmploymentStatusType;
-import calculator.type.GenderType;
-import calculator.type.MaritalStatusType;
-import calculator.type.PositionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;

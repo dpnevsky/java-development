@@ -1,7 +1,7 @@
 package calculator.service.util.loancheck;
 
-import calculator.dto.ScoringDataDto;
 import calculator.exception.LoanCheckException;
+import core.dto.ScoringDataDto;
 import org.springframework.stereotype.Component;
 import calculator.service.util.Constant;
 

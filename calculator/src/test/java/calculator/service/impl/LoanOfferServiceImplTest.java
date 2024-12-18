@@ -1,8 +1,8 @@
 package calculator.service.impl;
 
-import calculator.dto.LoanOfferDto;
-import calculator.dto.LoanStatementRequestDto;
 import calculator.service.util.ServiceForCalculate;
+import core.dto.LoanOfferDto;
+import core.dto.LoanStatementRequestDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -74,7 +74,7 @@ class LoanOfferServiceImplTest {
     void generateLoanOffersCheckRateCalculation() {
         offers = loanOfferService.generateLoanOffers(request);
 
-        assertTrue(offers.stream().allMatch(offer -> offer.rate().compareTo(BigDecimal.ZERO) > 0));
+        assertTrue(offers.stream().allMatch(offer -> offer.getRate().compareTo(BigDecimal.ZERO) > 0));
     }
 
     @Test
@@ -83,7 +83,7 @@ class LoanOfferServiceImplTest {
 
         assertEquals(4, offers.size());
         for (int i = 1; i < offers.size(); i++) {
-            assertTrue(offers.get(i - 1).rate().compareTo(offers.get(i).rate()) >= 0);
+            assertTrue(offers.get(i - 1).getRate().compareTo(offers.get(i).getRate()) >= 0);
         }
     }
 }

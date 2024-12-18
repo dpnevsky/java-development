@@ -1,12 +1,12 @@
 package calculator.controller;
 
-import calculator.dto.CreditDto;
-import calculator.dto.LoanOfferDto;
-import calculator.dto.LoanStatementRequestDto;
-import calculator.dto.ScoringDataDto;
 import calculator.exception.LoanCheckException;
 import calculator.service.LoanCalculatorService;
 import calculator.service.LoanOfferService;
+import core.dto.CreditDto;
+import core.dto.LoanOfferDto;
+import core.dto.LoanStatementRequestDto;
+import core.dto.ScoringDataDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
