@@ -30,6 +30,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -112,7 +113,7 @@ class DealApiControllerTest {
                 .withClientID(client)
                 .withCreditID(credit)
                 .withStatus(ApplicationStatusType.PREAPPROVAL)
-                .withCreationDate(LocalDate.now())
+                .withCreationDate(LocalDateTime.now())
                 .withAppliedOffer(LoanOfferDto.builder()
                         .withStatementId(UUID.randomUUID())
                         .withRequestedAmount(BigDecimal.valueOf(25000.00))
@@ -123,7 +124,7 @@ class DealApiControllerTest {
                         .withIsInsuranceEnabled(true)
                         .withIsSalaryClient(true)
                         .build())
-                .withSignDate(LocalDate.now().plusDays(5))
+                .withSignDate(LocalDateTime.now().plusDays(5))
                 .withSesCode("ABC123")
                 .withStatementStatusHistory(Arrays.asList(
                         StatementStatusHistoryDto.builder().build()
@@ -236,11 +237,11 @@ class DealApiControllerTest {
 
     @Test
     void selectLoanOffer_ShouldUpdateStatementStatus() {
-        when(loanStatementService.selectLoanOfferByStatementId(loanOfferFirst.getStatementId())).thenReturn(statement);
+        when(loanStatementService.getStatementById(loanOfferFirst.getStatementId())).thenReturn(statement);
 
         dealApiController.selectLoanOffer(loanOfferFirst);
 
-        verify(loanStatementService).selectLoanOfferByStatementId(loanOfferFirst.getStatementId());
+        verify(loanStatementService).getStatementById(loanOfferFirst.getStatementId());
         verify(loanStatementService).updateStatement(statement, loanOfferFirst, ApplicationStatusType.PREAPPROVAL);
         verify(loanStatementService).saveStatement(statement);
     }

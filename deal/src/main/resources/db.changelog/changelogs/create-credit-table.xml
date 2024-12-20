@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet id="create-credit-table" author="dpnevsky@gmail.com">
+        <createTable tableName="credit">
+            <column name="credit_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="amount" type="DECIMAL(19, 2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="term" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="monthly_payment" type="DECIMAL(19, 2)"/>
+            <column name="rate" type="DECIMAL(19, 4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="psk" type="DECIMAL(19, 4)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="payment_shedule" type="JSON"/>
+            <column name="insurance_enabled" type="BOOLEAN"/>
+            <column name="salary_client" type="BOOLEAN"/>
+            <column name="credit_status" type="VARCHAR(50)"/>
+        </createTable>
+
+<!--        <addPrimaryKey columnNames="credit_id" tableName="credit" constraintName="pk_credit"/>-->
+
+        <rollback>
+            <dropTable tableName="credit"/>
+        </rollback>
+
+        <comment>
+            This change set creates the credit table with all required fields, including JSON and ENUM columns.
+        </comment>
+    </changeSet>
+</databaseChangeLog>

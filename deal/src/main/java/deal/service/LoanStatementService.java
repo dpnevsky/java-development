@@ -14,8 +14,6 @@ public interface LoanStatementService {
 
     Statement saveStatement(Statement statement);
 
-    Statement selectLoanOfferByStatementId(UUID StatementId);
-
     Statement updateStatement(Statement statement, LoanOfferDto loanOfferDto, ApplicationStatusType statusType);
 
     Statement getStatementById(UUID statementId);

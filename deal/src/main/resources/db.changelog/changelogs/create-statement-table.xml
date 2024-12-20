@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+    https://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.17.xsd">
+
+    <changeSet id="create-statement-table" author="dpnevsky@gmail.com">
+        <createTable tableName="statement">
+            <column name="statement_id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="client_id" type="UUID">
+                <constraints nullable="false"/>
+            </column>
+            <column name="credit_id" type="UUID"/>
+            <column name="status" type="VARCHAR(50)"/>
+            <column name="creation_date" type="TIMESTAMP"/>
+            <column name="applied_offer" type="JSON"/>
+            <column name="sign_date" type="TIMESTAMP"/>
+            <column name="ses_code" type="VARCHAR(255)"/>
+            <column name="status_history" type="JSON"/>
+        </createTable>
+
+<!--        <addPrimaryKey columnNames="statement_id" tableName="statement" constraintName="pk_statement"/>-->
+
+        <addForeignKeyConstraint
+                baseTableName="statement"
+                baseColumnNames="client_id"
+                referencedTableName="client"
+                referencedColumnNames="client_id"
+                constraintName="fk_statement_client"/>
+
+        <addForeignKeyConstraint
+                baseTableName="statement"
+                baseColumnNames="credit_id"
+                referencedTableName="credit"
+                referencedColumnNames="credit_id"
+                constraintName="fk_statement_credit"/>
+
+        <rollback>
+            <dropTable tableName="statement"/>
+        </rollback>
+
+        <comment>
+            This change set creates the statement table with all necessary fields and establishes foreign key relationships to the client and credit tables.
+        </comment>
+    </changeSet>
+</databaseChangeLog>
