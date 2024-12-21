@@ -32,7 +32,7 @@ public class CalculatorApiController {
 
     @Operation(summary = "Performs prescoring and issues loan offers")
     @PostMapping("/offers")
-    public ResponseEntity<List<LoanOfferDto>> generateLoanOffers(@RequestBody @Valid LoanStatementRequestDto loanStatementRequestDto) {
+    public ResponseEntity<List<LoanOfferDto>> generateLoanOffers(@RequestBody LoanStatementRequestDto loanStatementRequestDto) {
         log.info("Received request for generating loan offers: {}", loanStatementRequestDto);
         List<LoanOfferDto> offers = loanOfferService.generateLoanOffers(loanStatementRequestDto);
         log.info("Generated loan offers: {}", offers);

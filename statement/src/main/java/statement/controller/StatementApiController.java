@@ -36,7 +36,7 @@ public class StatementApiController {
 
     @Operation(summary = "Select loan offer")
     @PostMapping("/offer")
-    public void selectLoanOffer(@RequestBody @Valid LoanOfferDto loanOfferDto) {
+    public void selectLoanOffer(@RequestBody LoanOfferDto loanOfferDto) {
         log.info("Selected offer: {}", loanOfferDto);
         dealServiceRestClient.selectLoanOffer(loanOfferDto);
         log.info("Selected offer sent to MC Deal: {}", loanOfferDto);

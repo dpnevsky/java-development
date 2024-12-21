@@ -29,8 +29,6 @@
             <column name="credit_status" type="VARCHAR(50)"/>
         </createTable>
 
-<!--        <addPrimaryKey columnNames="credit_id" tableName="credit" constraintName="pk_credit"/>-->
-
         <rollback>
             <dropTable tableName="credit"/>
         </rollback>

@@ -16,7 +16,10 @@
         <jackson.version>2.15.2</jackson.version>
         <slf4j.version>2.0.9</slf4j.version>
         <lombok.version>1.18.28</lombok.version>
+        <neoflex.core.version>1.0-SNAPSHOT</neoflex.core.version>
         <junit.platform.version>1.10.0</junit.platform.version>
+        <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
+        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -70,7 +73,7 @@
         <dependency>
             <groupId>ru.neoflex</groupId>
             <artifactId>core</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <version>${neoflex.core.version}</version>
             <scope>compile</scope>
         </dependency>
 
@@ -112,7 +115,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>${maven-compiler-plugin.version}</version>
                 <configuration>
                     <source>${java.version}</source>
                     <target>${java.version}</target>
@@ -123,7 +126,7 @@
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.10</version>
+                <version>${jacoco-maven-plugin.version}</version>
                 <executions>
                     <execution>
                         <goals>

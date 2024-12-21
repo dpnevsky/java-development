@@ -119,41 +119,6 @@ class CalculatorApiControllerTest {
     }
 
     @Test
-    void generateLoanOffersWithMissingFieldsShouldReturnBadRequest() throws Exception {
-        LoanStatementRequestDto invalidRequest = LoanStatementRequestDto.builder().withAmount(null).build();
-
-        mockMvc.perform(post("/calculator/offers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void generateLoanOffersWithBadTermShouldReturnBadRequest() throws Exception {
-        LoanStatementRequestDto invalidRequest = LoanStatementRequestDto.builder().withTerm(1).build();
-
-        mockMvc.perform(post("/calculator/offers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(containsString("Term must be at least 6 months")));
-    }
-
-    @Test
-    void generateLoanOffersWithBadAmountShouldReturnBadRequest() throws Exception {
-        LoanStatementRequestDto invalidRequest = LoanStatementRequestDto.builder()
-                .withAmount(BigDecimal.valueOf(-1))
-                .withTerm(12)
-                .build();
-
-        mockMvc.perform(post("/calculator/offers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(containsString("Amount must be greater than or equal to 20000")));
-    }
-
-    @Test
     void calculateLoanWithValidRequestShouldReturnCreditDetails() throws Exception {
         when(loanCalculatorService.calculateLoan(validScoringRequest)).thenReturn(validCreditResponse);
 

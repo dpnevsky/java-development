@@ -40,6 +40,7 @@ public class DealServiceRestClientImpl implements DealServiceRestClient {
     public void selectLoanOffer(LoanOfferDto loanOfferDto) {
         restClient.post()
                 .uri(dealOfferSelectUrl)
-                .body(loanOfferDto);
+                .body(loanOfferDto)
+                .retrieve();
     }
 }

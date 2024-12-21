@@ -22,8 +22,6 @@
             <column name="status_history" type="JSON"/>
         </createTable>
 
-<!--        <addPrimaryKey columnNames="statement_id" tableName="statement" constraintName="pk_statement"/>-->
-
         <addForeignKeyConstraint
                 baseTableName="statement"
                 baseColumnNames="client_id"

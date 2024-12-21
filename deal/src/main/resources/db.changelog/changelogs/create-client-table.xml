@@ -31,8 +31,6 @@
             <column name="account_number" type="VARCHAR(255)"/>
         </createTable>
 
-<!--        <addPrimaryKey columnNames="client_id" tableName="client" constraintName="pk_client"/>-->
-
         <rollback>
             <dropTable tableName="client"/>
         </rollback>

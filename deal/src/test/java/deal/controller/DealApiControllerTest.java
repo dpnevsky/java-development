@@ -153,7 +153,7 @@ class DealApiControllerTest {
                 .withIsSalaryClient(true)
                 .build();
 
-        loanOffers = List.of(loanOfferFirst, loanOfferSecond);
+        loanOffers = List.of(loanOfferFirst, loanOfferSecond, loanOfferFirst, loanOfferSecond);
 
         scoringDataDto = ScoringDataDto.builder()
                 .withAmount(BigDecimal.valueOf(25000.00))
@@ -224,7 +224,7 @@ class DealApiControllerTest {
         ResponseEntity<List<LoanOfferDto>> response = dealApiController.getLoanOffers(requestDto);
 
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(4, response.getBody().size());
         assertEquals(BigDecimal.valueOf(25000.00), response.getBody().get(0).getRequestedAmount());
         assertEquals(BigDecimal.valueOf(5.5), response.getBody().get(0).getRate());
         assertEquals(BigDecimal.valueOf(30000.00), response.getBody().get(1).getTotalAmount());
