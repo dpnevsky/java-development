@@ -63,9 +63,9 @@ public class DealApiController {
     @Operation(summary = "Select loan offer and update statement status")
     @PostMapping("/offer/select")
     public void selectLoanOffer(@RequestBody @Valid LoanOfferDto loanOfferDto) {
-        log.info("Received request to select loan offer for statement ID: {}", loanOfferDto.getStatementId());
+        log.info("Received request with a loan offer with a statement ID: {}", loanOfferDto.getStatementId());
 
-        Statement statement = loanStatementService.selectLoanOfferByStatementId(loanOfferDto.getStatementId());
+        Statement statement = loanStatementService.getStatementById(loanOfferDto.getStatementId());
         if (statement == null) {
             log.error("Statement with ID {} not found", loanOfferDto.getStatementId());
             return;

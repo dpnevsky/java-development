@@ -23,6 +23,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.UUID;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -99,7 +100,7 @@ class LoanStatementServiceImplTest {
                 .withClientID(client)
                 .withCreditID(credit)
                 .withStatus(ApplicationStatusType.PREPARE_DOCUMENTS)
-                .withCreationDate(LocalDate.now())
+                .withCreationDate(LocalDateTime.now())
                 .withAppliedOffer(LoanOfferDto.builder()
                         .withStatementId(UUID.randomUUID())
                         .withRequestedAmount(BigDecimal.valueOf(25000.00))
@@ -110,7 +111,7 @@ class LoanStatementServiceImplTest {
                         .withIsInsuranceEnabled(true)
                         .withIsSalaryClient(true)
                         .build())
-                .withSignDate(LocalDate.now().plusDays(5))
+                .withSignDate(LocalDateTime.now().plusDays(5))
                 .withSesCode("ABC123")
                 .withStatementStatusHistory(Arrays.asList(
                         StatementStatusHistoryDto.builder().build()

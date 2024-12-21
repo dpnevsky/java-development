@@ -1,8 +1,8 @@
 package calculator.service;
 
-import calculator.dto.CreditDto;
-import calculator.dto.ScoringDataDto;
 import calculator.exception.LoanCheckException;
+import core.dto.CreditDto;
+import core.dto.ScoringDataDto;
 
 public interface LoanCalculatorService {
 

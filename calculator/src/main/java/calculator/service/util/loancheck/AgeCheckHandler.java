@@ -1,9 +1,8 @@
 package calculator.service.util.loancheck;
 
-import calculator.dto.ScoringDataDto;
 import calculator.exception.LoanCheckException;
+import core.dto.ScoringDataDto;
 import org.springframework.stereotype.Component;
-
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import static calculator.service.util.Constant.MAX_AGE_FOR_CREDIT;

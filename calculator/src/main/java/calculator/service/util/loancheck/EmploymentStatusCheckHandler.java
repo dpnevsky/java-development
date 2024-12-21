@@ -1,8 +1,8 @@
 package calculator.service.util.loancheck;
 
-import calculator.dto.ScoringDataDto;
 import calculator.exception.LoanCheckException;
-import calculator.type.EmploymentStatusType;
+import core.dto.ScoringDataDto;
+import core.type.EmploymentStatusType;
 import org.springframework.stereotype.Component;
 import java.math.BigDecimal;
 import static calculator.service.util.Constant.INCREASE_RATE_FOR_BUSINESS_OWNER;

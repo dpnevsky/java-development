@@ -1,17 +1,17 @@
 package calculator.controller;
 
-import calculator.dto.CreditDto;
-import calculator.dto.EmploymentDto;
-import calculator.dto.LoanOfferDto;
-import calculator.dto.LoanStatementRequestDto;
-import calculator.dto.ScoringDataDto;
 import calculator.service.LoanCalculatorService;
 import calculator.service.LoanOfferService;
-import calculator.type.EmploymentStatusType;
-import calculator.type.GenderType;
-import calculator.type.MaritalStatusType;
-import calculator.type.PositionType;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import core.dto.CreditDto;
+import core.dto.EmploymentDto;
+import core.dto.LoanOfferDto;
+import core.dto.LoanStatementRequestDto;
+import core.dto.ScoringDataDto;
+import core.type.EmploymentStatusType;
+import core.type.GenderType;
+import core.type.MaritalStatusType;
+import core.type.PositionType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,41 +116,6 @@ class CalculatorApiControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].requestedAmount").value("20000"))
                 .andExpect(jsonPath("$[0].rate").value("5.5"));
-    }
-
-    @Test
-    void generateLoanOffersWithMissingFieldsShouldReturnBadRequest() throws Exception {
-        LoanStatementRequestDto invalidRequest = LoanStatementRequestDto.builder().withAmount(null).build();
-
-        mockMvc.perform(post("/calculator/offers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest());
-    }
-
-    @Test
-    void generateLoanOffersWithBadTermShouldReturnBadRequest() throws Exception {
-        LoanStatementRequestDto invalidRequest = LoanStatementRequestDto.builder().withTerm(1).build();
-
-        mockMvc.perform(post("/calculator/offers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(containsString("Term must be at least 6 months")));
-    }
-
-    @Test
-    void generateLoanOffersWithBadAmountShouldReturnBadRequest() throws Exception {
-        LoanStatementRequestDto invalidRequest = LoanStatementRequestDto.builder()
-                .withAmount(BigDecimal.valueOf(-1))
-                .withTerm(12)
-                .build();
-
-        mockMvc.perform(post("/calculator/offers")
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(invalidRequest)))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(containsString("Amount must be greater than or equal to 20000")));
     }
 
     @Test

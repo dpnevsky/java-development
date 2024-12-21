@@ -1,11 +1,11 @@
 package calculator.service.impl;
 
-import calculator.dto.CreditDto;
-import calculator.dto.PaymentScheduleElementDto;
-import calculator.dto.ScoringDataDto;
 import calculator.exception.LoanCheckException;
 import calculator.service.LoanCalculatorService;
 import calculator.service.util.loancheck.LoanApplicationProcessor;
+import core.dto.CreditDto;
+import core.dto.PaymentScheduleElementDto;
+import core.dto.ScoringDataDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;

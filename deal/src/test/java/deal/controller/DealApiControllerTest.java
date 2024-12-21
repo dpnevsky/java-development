@@ -30,6 +30,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -112,7 +113,7 @@ class DealApiControllerTest {
                 .withClientID(client)
                 .withCreditID(credit)
                 .withStatus(ApplicationStatusType.PREAPPROVAL)
-                .withCreationDate(LocalDate.now())
+                .withCreationDate(LocalDateTime.now())
                 .withAppliedOffer(LoanOfferDto.builder()
                         .withStatementId(UUID.randomUUID())
                         .withRequestedAmount(BigDecimal.valueOf(25000.00))
@@ -123,7 +124,7 @@ class DealApiControllerTest {
                         .withIsInsuranceEnabled(true)
                         .withIsSalaryClient(true)
                         .build())
-                .withSignDate(LocalDate.now().plusDays(5))
+                .withSignDate(LocalDateTime.now().plusDays(5))
                 .withSesCode("ABC123")
                 .withStatementStatusHistory(Arrays.asList(
                         StatementStatusHistoryDto.builder().build()
@@ -152,7 +153,7 @@ class DealApiControllerTest {
                 .withIsSalaryClient(true)
                 .build();
 
-        loanOffers = List.of(loanOfferFirst, loanOfferSecond);
+        loanOffers = List.of(loanOfferFirst, loanOfferSecond, loanOfferFirst, loanOfferSecond);
 
         scoringDataDto = ScoringDataDto.builder()
                 .withAmount(BigDecimal.valueOf(25000.00))
@@ -223,7 +224,7 @@ class DealApiControllerTest {
         ResponseEntity<List<LoanOfferDto>> response = dealApiController.getLoanOffers(requestDto);
 
         assertNotNull(response);
-        assertEquals(2, response.getBody().size());
+        assertEquals(4, response.getBody().size());
         assertEquals(BigDecimal.valueOf(25000.00), response.getBody().get(0).getRequestedAmount());
         assertEquals(BigDecimal.valueOf(5.5), response.getBody().get(0).getRate());
         assertEquals(BigDecimal.valueOf(30000.00), response.getBody().get(1).getTotalAmount());
@@ -236,11 +237,11 @@ class DealApiControllerTest {
 
     @Test
     void selectLoanOffer_ShouldUpdateStatementStatus() {
-        when(loanStatementService.selectLoanOfferByStatementId(loanOfferFirst.getStatementId())).thenReturn(statement);
+        when(loanStatementService.getStatementById(loanOfferFirst.getStatementId())).thenReturn(statement);
 
         dealApiController.selectLoanOffer(loanOfferFirst);
 
-        verify(loanStatementService).selectLoanOfferByStatementId(loanOfferFirst.getStatementId());
+        verify(loanStatementService).getStatementById(loanOfferFirst.getStatementId());
         verify(loanStatementService).updateStatement(statement, loanOfferFirst, ApplicationStatusType.PREAPPROVAL);
         verify(loanStatementService).saveStatement(statement);
     }
