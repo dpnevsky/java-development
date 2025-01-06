@@ -64,7 +64,7 @@ public class Statement {
     private LocalDateTime signDate;
 
     @Column(name = "ses_code")
-    private String sesCode;
+    private UUID sesCode;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "status_history")

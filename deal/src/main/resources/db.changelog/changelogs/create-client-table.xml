@@ -26,8 +26,8 @@
             <column name="gender" type="VARCHAR(20)"/>
             <column name="marital_status" type="VARCHAR(50)"/>
             <column name="dependent_amount" type="INTEGER"/>
-            <column name="passport_id" type="JSON"/>
-            <column name="employment_id" type="JSON"/>
+            <column name="passport_id" type="JSONB"/>
+            <column name="employment_id" type="JSONB"/>
             <column name="account_number" type="VARCHAR(255)"/>
         </createTable>
 

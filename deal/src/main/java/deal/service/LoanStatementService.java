@@ -21,4 +21,10 @@ public interface LoanStatementService {
     Statement updateStatement(Statement statement, ApplicationStatusType statusType);
 
     ScoringDataDto buildScoringData(Client client, LoanOfferDto appliedOffer, FinishRegistrationRequestDto finishRegistrationRequestDto);
+
+    void updateStatementStatus(UUID statementId, ApplicationStatusType applicationStatusType);
+
+    void setSesCode(UUID statementId, UUID sesCode);
+
+    UUID getSesCodeByStatementId(UUID statementId);
 }

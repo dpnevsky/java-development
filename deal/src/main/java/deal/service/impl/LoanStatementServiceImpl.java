@@ -104,6 +104,21 @@ public class LoanStatementServiceImpl implements LoanStatementService {
     }
 
     @Override
+    public void updateStatementStatus(UUID statementId, ApplicationStatusType applicationStatusType) {
+        statementRepository.updateStatementStatusAndStatusHistory(statementId, applicationStatusType.toString());
+    }
+
+    @Override
+    public void setSesCode(UUID statementId, UUID sesCode) {
+        statementRepository.setSesCodeAndSignDate(statementId, sesCode);
+    }
+
+    @Override
+    public UUID getSesCodeByStatementId(UUID statementId) {
+        return statementRepository.findSesCodeByStatementId(statementId);
+    }
+
+    @Override
     public Statement getStatementById(UUID statementId) {
         return statementRepository.findById(statementId)
                 .orElseThrow(() -> new IllegalArgumentException("Statement not found"));
