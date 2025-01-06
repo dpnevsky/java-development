@@ -1,4 +1,4 @@
-package core.util;
+package core.dto;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
@@ -6,6 +6,7 @@ import lombok.Builder;
 import core.type.ThemeType;
 
 import java.io.Serializable;
+import java.util.UUID;
 
 @Builder(setterPrefix = "with")
 public record EmailMessage(
@@ -21,10 +22,17 @@ public record EmailMessage(
 
         @Schema(description = "Statement ID associated with this email", example = "123456")
         @NotNull(message = "Statement ID is required")
-        Long statementId,
+        UUID statementId,
 
         @Schema(description = "Text content of the email", example = "Your loan application has been approved.")
         @NotNull(message = "Email text is required")
         String text
-) implements Serializable {}
+) implements Serializable {
+        @Override
+        public String toString() {
+                return "EmailMessage{" +
+                        "Theme: " + theme +
+                        "\n" + text;
+        }
+}
 
