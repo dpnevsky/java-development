@@ -1,7 +1,6 @@
 package deal.persistence.repository;
 
 import deal.persistence.model.Statement;
-import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -11,7 +10,6 @@ import java.util.UUID;
 public interface StatementRepository extends JpaRepository<Statement, UUID> {
 
     @Modifying
-    @Transactional
     @Query(value = """
 UPDATE statement
 SET status = :status,
@@ -24,9 +22,7 @@ WHERE statement_id = :statementId
 """, nativeQuery = true)
     void updateStatementStatusAndStatusHistory(@Param("statementId") UUID statementId, @Param("status") String status);
 
-
     @Modifying
-    @Transactional
     @Query(value = """
 UPDATE statement
 SET ses_code = :sesCode,

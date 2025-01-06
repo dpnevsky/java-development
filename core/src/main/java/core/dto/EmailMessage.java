@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.*;
 import lombok.Builder;
 import core.type.ThemeType;
-
 import java.io.Serializable;
 import java.util.UUID;
 
@@ -35,4 +34,3 @@ public record EmailMessage(
                         "\n" + text;
         }
 }
-

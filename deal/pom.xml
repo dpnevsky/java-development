@@ -12,7 +12,7 @@
         <java.version>17</java.version>
         <spring-boot.version>3.3.5</spring-boot.version>
         <springdoc.version>2.6.0</springdoc.version>
-        <jackson.version>2.15.2</jackson.version>
+        <jackson.version>2.16.0</jackson.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <lombok.version>1.18.28</lombok.version>
         <liquibase.version>4.30.0</liquibase.version>

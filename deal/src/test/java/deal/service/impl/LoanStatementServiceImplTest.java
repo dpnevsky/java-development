@@ -112,7 +112,6 @@ class LoanStatementServiceImplTest {
                         .withIsSalaryClient(true)
                         .build())
                 .withSignDate(LocalDateTime.now().plusDays(5))
-                .withSesCode("ABC123")
                 .withStatementStatusHistory(Arrays.asList(
                         StatementStatusHistoryDto.builder().build()
                 ))

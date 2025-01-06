@@ -6,6 +6,7 @@ import deal.persistence.model.Client;
 import deal.persistence.model.Statement;
 import core.dto.LoanOfferDto;
 import core.type.ApplicationStatusType;
+
 import java.util.UUID;
 
 public interface LoanStatementService {

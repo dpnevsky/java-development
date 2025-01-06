@@ -15,12 +15,6 @@ spring:
     liquibase:
       change-log: db.changelog/changelog.xml
 
-    kafka:
-        bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
-        producer:
-            key-serializer: org.apache.kafka.common.serialization.StringSerializer
-            value-serializer: core.util.EmailMessageSerializer
-
 server:
     port: 8082
 
