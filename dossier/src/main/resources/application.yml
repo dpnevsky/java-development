@@ -1,0 +1,29 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: dossier
+
+  kafka:
+    bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+    consumer:
+      group-id: dossier-service-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: core.util.EmailMessageDeserializer
+      properties:
+        spring.json.trusted-packages: 'core.dto,core.util'
+
+  mail:
+    host: smtp.yandex.ru
+    port: 465
+    username: ivanovforexample@yandex.ru
+    password: ${mailPassword} #"wtxlmsiqmcwttxjj"
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
