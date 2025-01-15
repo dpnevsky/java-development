@@ -105,13 +105,13 @@ public class LoanStatementServiceImpl implements LoanStatementService {
                 .build();
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public void updateStatementStatus(UUID statementId, ApplicationStatusType applicationStatusType) {
         statementRepository.updateStatementStatusAndStatusHistory(statementId, applicationStatusType.toString());
     }
 
-    @Transactional
+//    @Transactional
     @Override
     public void setSesCode(UUID statementId, UUID sesCode) {
         statementRepository.setSesCodeAndSignDate(statementId, sesCode);
