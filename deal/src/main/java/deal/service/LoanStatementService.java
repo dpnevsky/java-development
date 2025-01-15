@@ -6,6 +6,7 @@ import deal.persistence.model.Client;
 import deal.persistence.model.Statement;
 import core.dto.LoanOfferDto;
 import core.type.ApplicationStatusType;
+
 import java.util.UUID;
 
 public interface LoanStatementService {
@@ -21,4 +22,10 @@ public interface LoanStatementService {
     Statement updateStatement(Statement statement, ApplicationStatusType statusType);
 
     ScoringDataDto buildScoringData(Client client, LoanOfferDto appliedOffer, FinishRegistrationRequestDto finishRegistrationRequestDto);
+
+    void updateStatementStatus(UUID statementId, ApplicationStatusType applicationStatusType);
+
+    void setSesCode(UUID statementId, UUID sesCode);
+
+    UUID getSesCodeByStatementId(UUID statementId);
 }

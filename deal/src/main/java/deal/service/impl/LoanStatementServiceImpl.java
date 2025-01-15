@@ -12,6 +12,8 @@ import core.dto.LoanOfferDto;
 import core.dto.StatementStatusHistoryDto;
 import core.type.ApplicationStatusType;
 import core.type.ChangeType;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -101,6 +103,23 @@ public class LoanStatementServiceImpl implements LoanStatementService {
                 .withEmployment(finishRegistrationRequestDto.employment())
                 .withAccountNumber(finishRegistrationRequestDto.accountNumber())
                 .build();
+    }
+
+    @Transactional
+    @Override
+    public void updateStatementStatus(UUID statementId, ApplicationStatusType applicationStatusType) {
+        statementRepository.updateStatementStatusAndStatusHistory(statementId, applicationStatusType.toString());
+    }
+
+    @Transactional
+    @Override
+    public void setSesCode(UUID statementId, UUID sesCode) {
+        statementRepository.setSesCodeAndSignDate(statementId, sesCode);
+    }
+
+    @Override
+    public UUID getSesCodeByStatementId(UUID statementId) {
+        return statementRepository.findSesCodeByStatementId(statementId);
     }
 
     @Override

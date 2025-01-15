@@ -42,7 +42,7 @@ public record LoanStatementRequestDto (
         @Pattern(regexp = "^[a-zA-Z]{2,30}$", message = "Middle name must be between 2 and 30 Latin letters")
         String middleName,
 
-        @Schema(description = "The email address of the borrower", example = "ivan.ivanov@yandex.ru", defaultValue = "ivan.ivanov@yandex.ru")
+        @Schema(description = "The email address of the borrower", example = "ivanovforexample@yandex.ru", defaultValue = "ivanovforexample@yandex.ru")
         @NotNull(message = "Email cannot be null")
         @Pattern(regexp = "^[a-z0-9A-Z_!#$%&'*+/=?`{|}~^.-]+@[a-z0-9A-Z.-]+$", message = "Email must be a valid address")
         String email,

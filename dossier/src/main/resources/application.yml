@@ -1,0 +1,25 @@
+server:
+  port: 8088
+
+spring:
+  application:
+    name: dossier
+
+  profiles:
+    active: local
+    group:
+      test:
+        - test
+
+  mail:
+    host: smtp.yandex.ru
+    port: 465
+    username: ${email}
+    password: ${mailPassword}
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true

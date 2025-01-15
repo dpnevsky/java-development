@@ -23,7 +23,7 @@
             <column name="psk" type="DECIMAL(19, 4)">
                 <constraints nullable="false"/>
             </column>
-            <column name="payment_shedule" type="JSON"/>
+            <column name="payment_shedule" type="JSONB"/>
             <column name="insurance_enabled" type="BOOLEAN"/>
             <column name="salary_client" type="BOOLEAN"/>
             <column name="credit_status" type="VARCHAR(50)"/>
@@ -34,7 +34,7 @@
         </rollback>
 
         <comment>
-            This change set creates the credit table with all required fields, including JSON and ENUM columns.
+            This change set creates the credit table with all required fields, including JSONB and ENUM columns.
         </comment>
     </changeSet>
 </databaseChangeLog>

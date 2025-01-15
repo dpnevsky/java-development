@@ -16,10 +16,10 @@
             <column name="credit_id" type="UUID"/>
             <column name="status" type="VARCHAR(50)"/>
             <column name="creation_date" type="TIMESTAMP"/>
-            <column name="applied_offer" type="JSON"/>
+            <column name="applied_offer" type="JSONB"/>
             <column name="sign_date" type="TIMESTAMP"/>
-            <column name="ses_code" type="VARCHAR(255)"/>
-            <column name="status_history" type="JSON"/>
+            <column name="ses_code" type="UUID"/>
+            <column name="status_history" type="JSONB"/>
         </createTable>
 
         <addForeignKeyConstraint

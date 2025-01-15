@@ -14,6 +14,7 @@ import core.type.MaritalStatusType;
 import core.type.PositionType;
 import core.util.Passport;
 import deal.client.CalculatorServiceRestClient;
+import deal.client.DealKafkaProducerClientService;
 import deal.mapper.CreditMapper;
 import deal.persistence.model.Client;
 import deal.persistence.model.Credit;
@@ -45,6 +46,9 @@ class DealApiControllerTest {
 
     @Mock
     private LoanStatementService loanStatementService;
+
+    @Mock
+    DealKafkaProducerClientService dealKafkaProducerClientService;
 
     @Mock
     private CalculatorServiceRestClient calculatorServiceRestClient;
@@ -112,7 +116,7 @@ class DealApiControllerTest {
                 .withStatementId(UUID.randomUUID())
                 .withClientID(client)
                 .withCreditID(credit)
-                .withStatus(ApplicationStatusType.PREAPPROVAL)
+                .withStatus(ApplicationStatusType.APPROVED)
                 .withCreationDate(LocalDateTime.now())
                 .withAppliedOffer(LoanOfferDto.builder()
                         .withStatementId(UUID.randomUUID())
@@ -125,7 +129,6 @@ class DealApiControllerTest {
                         .withIsSalaryClient(true)
                         .build())
                 .withSignDate(LocalDateTime.now().plusDays(5))
-                .withSesCode("ABC123")
                 .withStatementStatusHistory(Arrays.asList(
                         StatementStatusHistoryDto.builder().build()
                 ))
@@ -242,7 +245,7 @@ class DealApiControllerTest {
         dealApiController.selectLoanOffer(loanOfferFirst);
 
         verify(loanStatementService).getStatementById(loanOfferFirst.getStatementId());
-        verify(loanStatementService).updateStatement(statement, loanOfferFirst, ApplicationStatusType.PREAPPROVAL);
+        verify(loanStatementService).updateStatement(statement, loanOfferFirst, ApplicationStatusType.APPROVED);
         verify(loanStatementService).saveStatement(statement);
     }
 
@@ -261,7 +264,7 @@ class DealApiControllerTest {
         verify(loanStatementService).getStatementById(UUID.fromString(statementId));
         verify(calculatorServiceRestClient).calculateLoan(scoringDataDto);
         verify(creditService).saveCredit(credit);
-        verify(loanStatementService).updateStatement(statement, ApplicationStatusType.APPROVED);
+        verify(loanStatementService).updateStatement(statement, ApplicationStatusType.CC_APPROVED);
         verify(loanStatementService).saveStatement(statement);
     }
 }
