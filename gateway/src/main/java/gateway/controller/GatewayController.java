@@ -70,7 +70,6 @@ public class GatewayController {
             RestClient.RequestBodySpec requestSpec = restClient.method(HttpMethod.valueOf(requestMethod))
                     .uri(fullUrl);
 
-            // Установите Content-Type, если передаётся тело
             if (body != null && !body.isEmpty()) {
                 requestSpec.header("Content-Type", "application/json");
                 requestSpec.body(body);

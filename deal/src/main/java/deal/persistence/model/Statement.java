@@ -1,6 +1,5 @@
 package deal.persistence.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -21,7 +20,7 @@ import org.hibernate.type.SqlTypes;
 import core.dto.LoanOfferDto;
 import core.dto.StatementStatusHistoryDto;
 import core.type.ApplicationStatusType;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.UUID;
 
@@ -52,16 +51,14 @@ public class Statement {
     private ApplicationStatusType status;
 
     @Column(name = "creation_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime creationDate;
+    private Timestamp creationDate;
 
     @JdbcTypeCode(SqlTypes.JSON)
     @Column(name = "applied_offer")
     private LoanOfferDto appliedOffer;
 
     @Column(name = "sign_date")
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
-    private LocalDateTime signDate;
+    private Timestamp signDate;
 
     @Column(name = "ses_code")
     private UUID sesCode;

@@ -13,10 +13,8 @@
         <spring-boot.version>3.3.5</spring-boot.version>
         <springdoc.version>2.6.0</springdoc.version>
         <jackson.version>2.15.2</jackson.version>
-        <mapstruct.version>1.6.3</mapstruct.version>
         <slf4j.version>2.0.9</slf4j.version>
         <lombok.version>1.18.28</lombok.version>
-        <postgresql-driver.version>42.7.4</postgresql-driver.version>
         <junit.platform.version>1.10.0</junit.platform.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
         <neoflex.core.version>1.0-SNAPSHOT</neoflex.core.version>

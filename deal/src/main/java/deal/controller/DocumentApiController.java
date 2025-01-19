@@ -22,7 +22,6 @@ import static core.type.ApplicationStatusType.PREPARE_DOCUMENTS;
 import static core.type.KafkaTopicNameType.SEND_DOCUMENTS;
 import static core.type.KafkaTopicNameType.SEND_SES;
 
-
 @Tag(name = "Document API Controller", description = "API for working with deal documents")
 @Slf4j
 @RestController

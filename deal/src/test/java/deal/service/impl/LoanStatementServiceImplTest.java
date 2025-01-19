@@ -22,6 +22,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -100,7 +101,7 @@ class LoanStatementServiceImplTest {
                 .withClientID(client)
                 .withCreditID(credit)
                 .withStatus(ApplicationStatusType.PREPARE_DOCUMENTS)
-                .withCreationDate(LocalDateTime.now())
+                .withCreationDate(Timestamp.valueOf(LocalDateTime.now()))
                 .withAppliedOffer(LoanOfferDto.builder()
                         .withStatementId(UUID.randomUUID())
                         .withRequestedAmount(BigDecimal.valueOf(25000.00))
@@ -111,7 +112,7 @@ class LoanStatementServiceImplTest {
                         .withIsInsuranceEnabled(true)
                         .withIsSalaryClient(true)
                         .build())
-                .withSignDate(LocalDateTime.now().plusDays(5))
+                .withSignDate(Timestamp.valueOf(LocalDateTime.now().plusDays(5)))
                 .withStatementStatusHistory(Arrays.asList(
                         StatementStatusHistoryDto.builder().build()
                 ))
