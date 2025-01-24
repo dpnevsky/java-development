@@ -30,6 +30,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -117,7 +119,7 @@ class DealApiControllerTest {
                 .withClientID(client)
                 .withCreditID(credit)
                 .withStatus(ApplicationStatusType.APPROVED)
-                .withCreationDate(LocalDateTime.now())
+                .withCreationDate(Timestamp.from(Instant.now()))
                 .withAppliedOffer(LoanOfferDto.builder()
                         .withStatementId(UUID.randomUUID())
                         .withRequestedAmount(BigDecimal.valueOf(25000.00))
@@ -128,7 +130,7 @@ class DealApiControllerTest {
                         .withIsInsuranceEnabled(true)
                         .withIsSalaryClient(true)
                         .build())
-                .withSignDate(LocalDateTime.now().plusDays(5))
+                .withSignDate(Timestamp.valueOf(LocalDateTime.now().plusDays(5)))
                 .withStatementStatusHistory(Arrays.asList(
                         StatementStatusHistoryDto.builder().build()
                 ))

@@ -13,8 +13,8 @@ import core.dto.StatementStatusHistoryDto;
 import core.type.ApplicationStatusType;
 import core.type.ChangeType;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.UUID;
@@ -31,10 +31,10 @@ public class LoanStatementServiceImpl implements LoanStatementService {
         Statement statement = new Statement();
         statement.setClientID(client);
         statement.setStatus(ApplicationStatusType.PREPARE_DOCUMENTS);
-        statement.setCreationDate(LocalDateTime.now());
+        statement.setCreationDate(Timestamp.from(Instant.now()));
         List<StatementStatusHistoryDto> statusHistory = new LinkedList<>();
         statusHistory.add(StatementStatusHistoryDto.builder()
-                .withTime(LocalDateTime.now())
+                .withTime(Timestamp.from(Instant.now()))
                 .withStatus(statement.getStatus())
                 .withChangeType(ChangeType.AUTOMATIC)
                 .build());
@@ -56,7 +56,7 @@ public class LoanStatementServiceImpl implements LoanStatementService {
         statusHistory.add(StatementStatusHistoryDto
                 .builder()
                 .withStatus(statement.getStatus())
-                .withTime(LocalDateTime.now())
+                .withTime(Timestamp.from(Instant.now()))
                 .withChangeType(ChangeType.MANUAL)
                 .build());
 
@@ -73,14 +73,13 @@ public class LoanStatementServiceImpl implements LoanStatementService {
         statusHistory.add(StatementStatusHistoryDto
                 .builder()
                 .withStatus(statement.getStatus())
-                .withTime(LocalDateTime.now())
+                .withTime(Timestamp.from(Instant.now()))
                 .withChangeType(ChangeType.MANUAL)
                 .build());
 
         statement.setStatementStatusHistory(statusHistory);
         return statement;
     }
-
 
     @Override
     public ScoringDataDto buildScoringData(Client client, LoanOfferDto appliedOffer, FinishRegistrationRequestDto finishRegistrationRequestDto) {
@@ -120,6 +119,11 @@ public class LoanStatementServiceImpl implements LoanStatementService {
     @Override
     public UUID getSesCodeByStatementId(UUID statementId) {
         return statementRepository.findSesCodeByStatementId(statementId);
+    }
+
+    @Override
+    public List<Statement> getAllStatements() {
+        return statementRepository.findAll();
     }
 
     @Override

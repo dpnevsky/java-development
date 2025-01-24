@@ -124,7 +124,7 @@ public class DealApiController {
         try {
             creditDto = calculatorServiceRestClient.calculateLoan(scoringDataDto);
         } catch (HttpClientErrorException ex) {
-            log.debug(ex.getMessage());
+            log.warn(ex.getMessage());
             EmailMessage emailMessage = EmailMessage.builder()
                     .withAddress(client.getEmail())
                     .withTheme(ThemeType.REJECTION)

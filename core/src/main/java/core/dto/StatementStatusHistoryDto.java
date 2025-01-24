@@ -5,9 +5,8 @@ import jakarta.validation.constraints.*;
 import lombok.Builder;
 import core.type.ApplicationStatusType;
 import core.type.ChangeType;
-
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.sql.Timestamp;
 
 @Builder(setterPrefix = "with")
 public record StatementStatusHistoryDto(
@@ -18,7 +17,7 @@ public record StatementStatusHistoryDto(
 
         @Schema(description = "Timestamp when status was changed", example = "2024-12-01T12:30:00")
         @NotNull(message = "Time of status change is required")
-        LocalDateTime time,
+        Timestamp time,
 
         @Schema(description = "Type of status change", example = "manual", allowableValues = "automatic, manual")
         @NotNull(message = "Change type is required")

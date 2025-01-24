@@ -16,7 +16,7 @@ SET status = :status,
     status_history = coalesce(status_history, '[]'::jsonb) || to_jsonb(json_build_object(
         'status', :status,
         'time', now(),
-        'changeType', 'automatic'
+        'changeType', 'AUTOMATIC'
     ))
 WHERE statement_id = :statementId
 """, nativeQuery = true)

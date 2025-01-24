@@ -6,7 +6,7 @@ import deal.persistence.model.Client;
 import deal.persistence.model.Statement;
 import core.dto.LoanOfferDto;
 import core.type.ApplicationStatusType;
-
+import java.util.List;
 import java.util.UUID;
 
 public interface LoanStatementService {
@@ -28,4 +28,6 @@ public interface LoanStatementService {
     void setSesCode(UUID statementId, UUID sesCode);
 
     UUID getSesCodeByStatementId(UUID statementId);
+
+    List<Statement> getAllStatements();
 }
