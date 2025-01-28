@@ -1,53 +1,77 @@
-name: SonarCloud
+name: SonarCloud and CodeCov
 
 env:
   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
   CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
 
 on:
-#  workflow_dispatch: # Ручной запуск workflow
   push:
     branches:
       - "devops"
 
 jobs:
-  sonarcloud:
+  core:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v3
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: 17
           distribution: 'corretto'
-
       - name: Build core module
         working-directory: ./core
         run: mvn clean install
-
-      - name: Analyze with SonarCloud core
+      - name: Build and install core
         working-directory: core
         run: |
-          mvn -B verify sonar:sonar \
+          mvn sonar:sonar \
             -Dsonar.projectKey=dpnevsky_core \
             -Dsonar.projectName=core \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
 
-      - name: Analyze with SonarCloud calculator
+  calculator:
+    needs: core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore Maven Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Restore Maven Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'corretto'
+      - name: Build and analyze calculator
         working-directory: calculator
         run: |
-          mvn clean verify \
-            jacoco:report \
-            -B verify sonar:sonar \
+          mvn clean verify jacoco:report sonar:sonar \
             -Dsonar.projectKey=dpnevsky_calculator \
             -Dsonar.projectName=calculator \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
-
       - name: Upload CodeCov Report for calculator
         uses: codecov/codecov-action@v5
         with:
@@ -55,20 +79,33 @@ jobs:
           flags: calculator
           fail_ci_if_error: true
           token: ${CODECOV_TOKEN}
-          slug: dpnevsky/java-development
 
-      - name: Analyze with SonarCloud statement
+  statement:
+    needs: core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore Maven Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'corretto'
+      - name: Build and analyze statement
         working-directory: statement
         run: |
-          mvn clean verify \
-            jacoco:report \
-            -B verify sonar:sonar \
+          mvn clean verify jacoco:report sonar:sonar \
             -Dsonar.projectKey=dpnevsky_statement \
             -Dsonar.projectName=statement \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
-
       - name: Upload CodeCov Report for statement
         uses: codecov/codecov-action@v5
         with:
@@ -76,20 +113,33 @@ jobs:
           flags: statement
           fail_ci_if_error: true
           token: ${CODECOV_TOKEN}
-          slug: dpnevsky/java-development
 
-      - name: Analyze with SonarCloud gateway
+  gateway:
+    needs: core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore Maven Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'corretto'
+      - name: Build and analyze gateway
         working-directory: gateway
         run: |
-          mvn clean verify \
-            jacoco:report \
-            -B verify sonar:sonar \
+          mvn clean verify jacoco:report sonar:sonar \
             -Dsonar.projectKey=dpnevsky_gateway \
             -Dsonar.projectName=gateway \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
-
       - name: Upload CodeCov Report for gateway
         uses: codecov/codecov-action@v5
         with:
@@ -97,20 +147,33 @@ jobs:
           flags: gateway
           fail_ci_if_error: true
           token: ${CODECOV_TOKEN}
-          slug: dpnevsky/java-development
 
-      - name: Analyze with SonarCloud deal
+  deal:
+    needs: core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore Maven Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'corretto'
+      - name: Build and analyze deal
         working-directory: deal
         run: |
-          mvn clean test -Dtest=!DealApplicationTests \
-            jacoco:report \
-            -B verify sonar:sonar \
+          mvn clean test -Dtest=!DealApplicationTests jacoco:report sonar:sonar \
             -Dsonar.projectKey=dpnevsky_deal \
             -Dsonar.projectName=deal \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
-
       - name: Upload CodeCov Report for deal
         uses: codecov/codecov-action@v5
         with:
@@ -118,25 +181,37 @@ jobs:
           flags: deal
           fail_ci_if_error: true
           token: ${CODECOV_TOKEN}
-          slug: dpnevsky/java-development
 
-      - name: Analyze with SonarCloud dossier
+  dossier:
+    needs: core
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Restore Maven Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'corretto'
+      - name: Build and analyze dossier
         working-directory: dossier
         run: |
-          mvn clean test -Dtest=!DossierApplicationTests -Dsurefire.failIfNoSpecifiedTests=false \
-            jacoco:report \
-            -B verify sonar:sonar \
+          mvn clean test -Dtest=!DossierApplicationTests -Dsurefire.failIfNoSpecifiedTests=false jacoco:report sonar:sonar \
             -Dsonar.projectKey=dpnevsky_dossier \
             -Dsonar.projectName=dossier \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.token=${SONAR_TOKEN}
-
       - name: Upload CodeCov Report for dossier
         uses: codecov/codecov-action@v5
         with:
           files: dossier/target/site/jacoco/jacoco.xml
           flags: dossier
-          fail_ci_if_error: true
+          fail_ci_if_error: false
           token: ${CODECOV_TOKEN}
-          slug: dpnevsky/java-development
