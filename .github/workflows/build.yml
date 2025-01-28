@@ -1,5 +1,9 @@
 name: SonarCloud
 
+env:
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+
 on:
 #  workflow_dispatch: # Ручной запуск workflow
   push:
@@ -23,9 +27,6 @@ jobs:
         run: mvn clean install
 
       - name: Analyze with SonarCloud core
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         working-directory: core
         run: |
           mvn -B verify sonar:sonar \
@@ -33,74 +34,109 @@ jobs:
             -Dsonar.projectName=core \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${SONAR_TOKEN}
 
       - name: Analyze with SonarCloud calculator
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         working-directory: calculator
         run: |
-          mvn clean compile \
+          mvn clean verify \
+            jacoco:report \
             -B verify sonar:sonar \
             -Dsonar.projectKey=dpnevsky_calculator \
             -Dsonar.projectName=calculator \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${SONAR_TOKEN}
+
+      - name: Upload CodeCov Report for calculator
+        uses: codecov/codecov-action@v5
+        with:
+          files: calculator/target/site/jacoco/jacoco.xml
+          flags: calculator
+          fail_ci_if_error: true
+          token: ${CODECOV_TOKEN}
+          slug: dpnevsky/java-development
 
       - name: Analyze with SonarCloud statement
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         working-directory: statement
         run: |
-          mvn clean compile \
+          mvn clean verify \
+            jacoco:report \
             -B verify sonar:sonar \
             -Dsonar.projectKey=dpnevsky_statement \
             -Dsonar.projectName=statement \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${SONAR_TOKEN}
+
+      - name: Upload CodeCov Report for statement
+        uses: codecov/codecov-action@v5
+        with:
+          files: statement/target/site/jacoco/jacoco.xml
+          flags: statement
+          fail_ci_if_error: true
+          token: ${CODECOV_TOKEN}
+          slug: dpnevsky/java-development
 
       - name: Analyze with SonarCloud gateway
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         working-directory: gateway
         run: |
-          mvn clean compile \
+          mvn clean verify \
+            jacoco:report \
             -B verify sonar:sonar \
             -Dsonar.projectKey=dpnevsky_gateway \
             -Dsonar.projectName=gateway \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${SONAR_TOKEN}
+
+      - name: Upload CodeCov Report for gateway
+        uses: codecov/codecov-action@v5
+        with:
+          files: gateway/target/site/jacoco/jacoco.xml
+          flags: gateway
+          fail_ci_if_error: true
+          token: ${CODECOV_TOKEN}
+          slug: dpnevsky/java-development
 
       - name: Analyze with SonarCloud deal
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         working-directory: deal
         run: |
           mvn clean test -Dtest=!DealApplicationTests \
+            jacoco:report \
             -B verify sonar:sonar \
             -Dsonar.projectKey=dpnevsky_deal \
             -Dsonar.projectName=deal \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${SONAR_TOKEN}
+
+      - name: Upload CodeCov Report for deal
+        uses: codecov/codecov-action@v5
+        with:
+          files: deal/target/site/jacoco/jacoco.xml
+          flags: deal
+          fail_ci_if_error: true
+          token: ${CODECOV_TOKEN}
+          slug: dpnevsky/java-development
 
       - name: Analyze with SonarCloud dossier
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         working-directory: dossier
         run: |
           mvn clean test -Dtest=!DossierApplicationTests -Dsurefire.failIfNoSpecifiedTests=false \
+            jacoco:report \
             -B verify sonar:sonar \
             -Dsonar.projectKey=dpnevsky_dossier \
             -Dsonar.projectName=dossier \
             -Dsonar.organization=dpnevsky \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.token=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.token=${SONAR_TOKEN}
+
+      - name: Upload CodeCov Report for dossier
+        uses: codecov/codecov-action@v5
+        with:
+          files: dossier/target/site/jacoco/jacoco.xml
+          flags: dossier
+          fail_ci_if_error: true
+          token: ${CODECOV_TOKEN}
+          slug: dpnevsky/java-development
