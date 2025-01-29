@@ -20,3 +20,4 @@ server:
 
 calculator:
     offers-url: http://localhost:8080/calculator/offers
+    calc-url: http://localhost:8080/calculator/calc

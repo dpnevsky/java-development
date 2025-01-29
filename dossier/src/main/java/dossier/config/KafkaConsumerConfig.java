@@ -23,8 +23,12 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConsumerFactory<String, EmailMessage> consumerFactory() {
+        String bootstrapServers = System.getenv("SPRING_KAFKA_BOOTSTRAP_SERVERS");
+        if (bootstrapServers == null) {
+            bootstrapServers = "localhost:9092,localhost:9093,localhost:9094";
+        }
         Map<String, Object> props = new HashMap<>();
-        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
+        props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, "dossier-service-group");
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
