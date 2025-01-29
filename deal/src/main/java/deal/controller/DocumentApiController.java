@@ -45,7 +45,7 @@ public class DocumentApiController {
                 .withAddress(email)
                 .withTheme(ThemeType.APPLICATION_STATUS)
                 .withStatementId(statementId)
-                .withText("Prepare documents.")
+                .withText("Documents. \n Agree with the conditions.")
                 .build();
         log.info("Sending document email: {}", emailMessage);
         dealKafkaProducerClientService.sendDocuments(SEND_DOCUMENTS, emailMessage);
@@ -65,7 +65,7 @@ public class DocumentApiController {
                 .withAddress(email)
                 .withTheme(ThemeType.OFFER)
                 .withStatementId(statementId)
-                .withText("Ses code: " + sesCode)
+                .withText("Ses code: " + sesCode + "\n Sign documents.")
                 .build();
         log.info("Sending SES code email: {}", emailMessage);
         dealKafkaProducerClientService.sendDocuments(SEND_SES, emailMessage);

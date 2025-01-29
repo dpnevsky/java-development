@@ -87,7 +87,7 @@ public class DealApiController {
                 .withAddress(email)
                 .withTheme(ThemeType.OFFER)
                 .withStatementId(statementId)
-                .withText("Loan offer selected.")
+                .withText("Your application is previously approved, complete the design.")
                 .build();
 
         dealKafkaProducerClientService.sendDocuments(FINISH_REGISTRATION, emailMessage);
@@ -150,7 +150,7 @@ public class DealApiController {
                 .withAddress(client.getEmail())
                 .withTheme(ThemeType.OFFER)
                 .withStatementId(UUID.fromString(statementId))
-                .withText("Loan offer calculated.")
+                .withText("Form documents.")
                 .build();
 
         dealKafkaProducerClientService.sendDocuments(CREATE_DOCUMENTS, emailMessage);

@@ -23,7 +23,6 @@ public class KafkaConsumerConfig {
 
     @Bean
     public ConsumerFactory<String, EmailMessage> consumerFactory() {
-        Map<String, Object> configProps = new HashMap<>();
         String bootstrapServers = System.getenv("SPRING_KAFKA_BOOTSTRAP_SERVERS");
         if (bootstrapServers == null) {
             bootstrapServers = "localhost:9092,localhost:9093,localhost:9094";

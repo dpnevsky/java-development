@@ -8,6 +8,10 @@ on:
   push:
     branches:
       - "devops"
+  pull_request:
+    branches:
+      - "develop"
+      - "main"
 
 jobs:
   core:
