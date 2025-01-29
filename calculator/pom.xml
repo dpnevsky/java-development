@@ -19,7 +19,7 @@
         <neoflex.core.version>1.0-SNAPSHOT</neoflex.core.version>
         <junit.platform.version>1.10.0</junit.platform.version>
         <jacoco-maven-plugin.version>0.8.10</jacoco-maven-plugin.version>
-        <maven-compiler-plugin.version>3.11.0</maven-compiler-plugin.version>
+        <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -109,6 +109,13 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <version>${spring-boot.version}</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>repackage</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
 
             <!-- Maven Compiler Plugin -->

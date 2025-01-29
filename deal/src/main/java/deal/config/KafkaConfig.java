@@ -22,7 +22,11 @@ public class KafkaConfig {
     @Bean
     public ProducerFactory<String, EmailMessage> producerFactory() {
         Map<String, Object> configProps = new HashMap<>();
-        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:9092,localhost:9093,localhost:9094");
+        String bootstrapServers = System.getenv("SPRING_KAFKA_BOOTSTRAP_SERVERS");
+        if (bootstrapServers == null) {
+            bootstrapServers = "localhost:9092,localhost:9093,localhost:9094";
+        }
+        configProps.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         configProps.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
         configProps.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, emailMessageSerialization.getClass());
 

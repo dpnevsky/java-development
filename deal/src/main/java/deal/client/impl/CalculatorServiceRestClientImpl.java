@@ -22,6 +22,9 @@ public class CalculatorServiceRestClientImpl implements CalculatorServiceRestCli
     @Value("${calculator.offers-url}")
     private String calculatorOffersUrl;
 
+    @Value("${calculator.calc-url}")
+    private String calculatorCalcUrl;
+
     @Override
     public List<LoanOfferDto> getLoanOffers(LoanStatementRequestDto loanStatementRequestDto) {
 
@@ -38,7 +41,7 @@ public class CalculatorServiceRestClientImpl implements CalculatorServiceRestCli
     @Override
     public CreditDto calculateLoan(ScoringDataDto scoringDataDto) {
         ResponseEntity<CreditDto> response = restClient.post()
-                .uri("http://localhost:8080/calculator/calc")
+                .uri(calculatorCalcUrl)
                 .body(scoringDataDto)
                 .retrieve()
                 .toEntity(new ParameterizedTypeReference<>() {
