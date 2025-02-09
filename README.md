@@ -3,7 +3,7 @@
 Java 17, SpringBoot 3.3.Х, PostgreSQL, Spring Data JPA, Liquibase, Swagger, JUnit, Mockito,
 Kafka, Docker, Docker-compose, CI (CodeCov, SonarCloud).
 
-![image](https://github.com/user-attachments/assets/ef3bbfdc-e489-473e-bc7f-2e5b9ec09ff5)
+![Архитектура](https://github.com/user-attachments/assets/5e2717d0-110e-455b-8482-c77efe4c05ba)
 
 - REST-API с использованием Spring Boot;
 - СУБД, с использованием инструментов миграции;
@@ -12,7 +12,7 @@ Kafka, Docker, Docker-compose, CI (CodeCov, SonarCloud).
 - Документирование API через Swagger/OpenAPI;
 - Настройка CI-пайплайнов, контейнеризация приложения.
 
-![image](https://github.com/user-attachments/assets/a91ca6b8-c4de-42ac-91fa-b44c2d6bed74)
+![flow](https://github.com/user-attachments/assets/4fd470a6-87ed-406d-a397-38c17929b6c3)
 
 Логика работы всей системы
 1. Пользователь отправляет заявку на кредит.
@@ -29,8 +29,9 @@ Kafka, Docker, Docker-compose, CI (CodeCov, SonarCloud).
 Если согласился - МС Досье на почту отправляет код и ссылку на подписание документов, куда клиент должен отправить полученный код в МС Сделка.
 10. Если полученный код совпадает с отправленным, МС Сделка выдает кредит (меняет статус сущности "Кредит" на ISSUED, а статус заявки на CREDIT_ISSUED)
 
-![image](https://github.com/user-attachments/assets/03cb08e0-5673-4cda-b4df-e67f5408921e)
+![scoring](https://github.com/user-attachments/assets/93ac1473-bb38-4108-81ad-8d9b8ac557f9)
 
-  
+![api](https://github.com/user-attachments/assets/af88f78f-01dc-48d2-b43d-ac0722802d9b)
 
+![sequence](https://github.com/user-attachments/assets/0de0279d-259f-4dcb-a029-dce17f23195b)
 
