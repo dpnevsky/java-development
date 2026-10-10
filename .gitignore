@@ -1,2 +1,6 @@
 java-development.iml
 .idea
+/.idea
+/core/target/
+/deal/src/main/resources/application-test.yml
+.env

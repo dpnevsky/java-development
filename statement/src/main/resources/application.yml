@@ -1,0 +1,7 @@
+server:
+    port: 8084
+
+deal:
+    statement-url: http://localhost:8082/deal/statement
+    offer:
+        select-url: http://localhost:8082/deal/offer/select

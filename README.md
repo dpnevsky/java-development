@@ -1,16 +1,16 @@
-# Java Development
+# Loan Origination System
 
 Учебный проект на Java — прототип банковского приложения для оформления кредита с микросервисной архитектурой.
 
 ## Исходный код
 
-**Основная разработка велась в ветке [`develop`](https://github.com/dpnevsky/java-development/tree/develop).** В ней находятся исходники сервисов, тесты, Docker Compose и конфигурация CI. Ветка `main` содержит описание проекта.
+**Исходный код опубликован в `main`.** На главной странице репозитория доступны все сервисы, тесты, Docker Compose и конфигурация CI. Разработка велась в `develop`, затем эта ветка была объединена с `main` с сохранением истории коммитов.
 
 Чтобы получить исходный код:
 
 ```bash
-git clone --branch develop https://github.com/dpnevsky/java-development.git
-cd java-development
+git clone https://github.com/dpnevsky/loan-origination-system.git
+cd loan-origination-system
 ```
 
 ## Процесс разработки
@@ -20,7 +20,7 @@ cd java-development
 1. В отдельных feature-ветках реализовывались сервисы «Калькулятор», «Сделка», «Заявка», «Досье» и API Gateway.
 2. Завершённые этапы объединялись в `develop` через pull request. История PR отражает последовательное добавление сервисов и развитие приложения.
 3. Конфигурация CI, сборка Docker-образов и запуск приложения через Docker Compose разрабатывались в ветке `devops`, затем были включены в `develop`.
-4. В `main` размещена документация проекта. Для просмотра исходников и работы с приложением следует использовать `develop`.
+4. Ветка `develop` объединена с `main` обычным merge. Основная ветка теперь содержит приложение вместе с документацией; переключать ветку для просмотра кода не нужно.
 
 Feature-ветки и `devops` сохранены вместе с историей коммитов и pull request: по ним можно проследить отдельные этапы разработки.
 
@@ -28,15 +28,15 @@ Feature-ветки и `devops` сохранены вместе с историе
 
 | Ветка | Назначение | Интеграция |
 | --- | --- | --- |
-| [`main`](https://github.com/dpnevsky/java-development/tree/main) | Описание проекта, архитектура и кредитный процесс. | Документация. |
-| [`develop`](https://github.com/dpnevsky/java-development/tree/develop) | Общая версия приложения, объединяющая сервисы, тесты и инфраструктуру. | Основная ветка с исходным кодом. |
-| [`feature/calculator/create`](https://github.com/dpnevsky/java-development/tree/feature/calculator/create) | Разработка сервиса «Калькулятор». | Объединена в `develop` через [PR #2](https://github.com/dpnevsky/java-development/pull/2). |
-| [`feature/deal/create`](https://github.com/dpnevsky/java-development/tree/feature/deal/create) | Разработка сервиса «Сделка» и общего модуля `core`. | Объединена в `develop` через [PR #3](https://github.com/dpnevsky/java-development/pull/3). |
-| [`feature/statement/create`](https://github.com/dpnevsky/java-development/tree/feature/statement/create) | Разработка сервиса «Заявка». | Объединена в `develop` через [PR #4](https://github.com/dpnevsky/java-development/pull/4). |
-| [`feature/dossier/create`](https://github.com/dpnevsky/java-development/tree/feature/dossier/create) | Разработка сервиса «Досье». | Объединена в `develop` через [PR #5](https://github.com/dpnevsky/java-development/pull/5). |
-| [`feature/gateway/create`](https://github.com/dpnevsky/java-development/tree/feature/gateway/create) | Разработка API Gateway. | Объединена в `develop` через [PR #6](https://github.com/dpnevsky/java-development/pull/6). |
-| [`devops`](https://github.com/dpnevsky/java-development/tree/devops) | CI, сборка Docker-образов и Docker Compose. | Объединена в `develop` через [PR #7](https://github.com/dpnevsky/java-development/pull/7). |
-| [`transactionbug`](https://github.com/dpnevsky/java-development/tree/transactionbug) | Отдельный эксперимент с отключением `@Transactional`. | Изменение не объединено в `develop`. |
+| [`main`](https://github.com/dpnevsky/loan-origination-system/tree/main) | Исходники сервисов, тесты, инфраструктура и описание кредитного процесса. | Основная версия приложения. |
+| [`develop`](https://github.com/dpnevsky/loan-origination-system/tree/develop) | Ветка интеграции этапов исходной разработки. | Объединена в `main`; сохранена для истории. |
+| [`feature/calculator/create`](https://github.com/dpnevsky/loan-origination-system/tree/feature/calculator/create) | Разработка сервиса «Калькулятор». | Объединена в `develop` через [PR #2](https://github.com/dpnevsky/loan-origination-system/pull/2). |
+| [`feature/deal/create`](https://github.com/dpnevsky/loan-origination-system/tree/feature/deal/create) | Разработка сервиса «Сделка» и общего модуля `core`. | Объединена в `develop` через [PR #3](https://github.com/dpnevsky/loan-origination-system/pull/3). |
+| [`feature/statement/create`](https://github.com/dpnevsky/loan-origination-system/tree/feature/statement/create) | Разработка сервиса «Заявка». | Объединена в `develop` через [PR #4](https://github.com/dpnevsky/loan-origination-system/pull/4). |
+| [`feature/dossier/create`](https://github.com/dpnevsky/loan-origination-system/tree/feature/dossier/create) | Разработка сервиса «Досье». | Объединена в `develop` через [PR #5](https://github.com/dpnevsky/loan-origination-system/pull/5). |
+| [`feature/gateway/create`](https://github.com/dpnevsky/loan-origination-system/tree/feature/gateway/create) | Разработка API Gateway. | Объединена в `develop` через [PR #6](https://github.com/dpnevsky/loan-origination-system/pull/6). |
+| [`devops`](https://github.com/dpnevsky/loan-origination-system/tree/devops) | CI, сборка Docker-образов и Docker Compose. | Объединена в `develop` через [PR #7](https://github.com/dpnevsky/loan-origination-system/pull/7). |
+| [`transactionbug`](https://github.com/dpnevsky/loan-origination-system/tree/transactionbug) | Отдельный эксперимент с отключением `@Transactional`. | Изменение не объединено в `develop`. |
 
 ## Технологии
 
@@ -46,7 +46,30 @@ Feature-ветки и `devops` сохранены вместе с историе
 - Swagger / OpenAPI.
 - JUnit, Mockito.
 - Docker, Docker Compose.
-- GitHub Actions, Codecov, SonarCloud.
+- GitHub Actions, JaCoCo; конфигурации Codecov и SonarCloud.
+
+## Структура проекта
+
+| Модуль | Назначение | Порт |
+| --- | --- | --- |
+| [`gateway`](gateway) | Входные REST endpoints и маршрутизация к сервисам. | 8086 |
+| [`statement`](statement) | Прескоринг заявки и выбор кредитного предложения. | 8084 |
+| [`deal`](deal) | Хранение заявки и кредита, управление этапами оформления. | 8082 |
+| [`calculator`](calculator) | Кредитные предложения, скоринг, ПСК и график платежей. | 8080 |
+| [`dossier`](dossier) | Обработка Kafka-событий и email-уведомления клиенту. | 8088 |
+| [`core`](core) | Общие DTO, типы и утилиты; библиотека для сервисов. | — |
+
+## Локальный запуск
+
+Нужны JDK 17, Maven, Docker и Docker Compose. Сначала соберите общий модуль: Dockerfiles сервисов используют его JAR.
+
+```bash
+mvn -f core/pom.xml clean install
+docker compose up --build -d
+docker compose ps
+```
+
+Перед запуском задайте собственные SMTP-параметры в `dossier/src/main/resources/application.yml`; без доступного SMTP почтовые этапы процесса не пройдут. Compose поднимает PostgreSQL, Kafka с ZooKeeper и сервисы приложения. Kafka UI доступен на `http://localhost:8085`, входной Gateway — на `http://localhost:8086`.
 
 ## Что отрабатывалось в проекте
 
@@ -87,4 +110,3 @@ Feature-ветки и `devops` сохранены вместе с историе
 ## Взаимодействие сервисов
 
 ![Последовательность взаимодействия сервисов](https://github.com/user-attachments/assets/0de0279d-259f-4dcb-a029-dce17f23195b)
-
